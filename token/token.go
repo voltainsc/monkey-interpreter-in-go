@@ -25,7 +25,7 @@ const (
 	SLASH   = "/"
 
 	LT = "<"
-	RT = ">"
+	GT = ">"
 
 	EQ     = "=="
 	NOT_EQ = "!="
