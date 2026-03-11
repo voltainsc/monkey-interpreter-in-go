@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/voltainsc/monkey-interpreter-in-go/evaluator"
 	"github.com/voltainsc/monkey-interpreter-in-go/lexer"
 	"github.com/voltainsc/monkey-interpreter-in-go/parser"
-	"github.com/voltainsc/monkey-interpreter-in-go/token"
 )
 
 const PROMPT = ">>"
@@ -32,11 +32,10 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 
-		io.WriteString(out, program.String())
-		io.WriteString(out, "\n")
-
-		for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken() {
-			fmt.Fprintf(out, "%+v\n", tok)
+		evaluated := evaluator.Eval(program)
+		if evaluated != nil {
+			io.WriteString(out, program.String())
+			io.WriteString(out, "\n")
 		}
 	}
 }
